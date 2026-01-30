@@ -52,3 +52,6 @@ htmlcov/
 
 # uv specific (lock file should be committed, but temporary files should not)
 .uv/
+
+# boot.dev cli
+game_state.jsonl
