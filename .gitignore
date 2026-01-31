@@ -55,3 +55,4 @@ htmlcov/
 
 # boot.dev cli
 game_state.jsonl
+game_events.jsonl
