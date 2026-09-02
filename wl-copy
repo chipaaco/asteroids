@@ -1,0 +1,48 @@
+diff --git a/constants.py b/constants.py
+index 04e26f2..321c3a9 100644
+--- a/constants.py
++++ b/constants.py
+@@ -3,3 +3,5 @@ SCREEN_HEIGHT = 720
+ 
+ PLAYER_RADIUS = 20
+ LINE_WIDTH = 2
++
++PLAYER_TURN_SPEED = 300
+diff --git a/main.py b/main.py
+index ff1aa6e..83599bf 100644
+--- a/main.py
++++ b/main.py
+@@ -16,6 +16,7 @@ def main():
+                 return
+         screen.fill("black")
+         ship.draw(screen)
++        ship.update(dt)
+         pygame.display.flip()
+         dt = clock.tick(60) / 1000
+ 
+diff --git a/player.py b/player.py
+index 22b027a..6114937 100644
+--- a/player.py
++++ b/player.py
+@@ -1,5 +1,5 @@
+ import pygame
+-from constants import PLAYER_RADIUS, LINE_WIDTH
++from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED
+ from circleshape import CircleShape
+ 
+ class Player(CircleShape):
+@@ -18,3 +18,14 @@ class Player(CircleShape):
+ 
+     def draw(self, screen):
+         pygame.draw.polygon(screen, "white", self.triangle(), LINE_WIDTH)
++
++    def rotate(self, dt):
++        self.rotation += PLAYER_TURN_SPEED * dt
++
++    def update(self, dt: float) -> None:
++        keys = pygame.key.get_pressed()
++
++        if keys[pygame.K_a]:
++            self.rotate(-dt)
++        if keys[pygame.K_d]:
++            self.rotate(dt)
